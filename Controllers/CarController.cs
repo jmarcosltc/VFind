@@ -24,6 +24,8 @@ namespace CarLoc.Controllers {
         [HttpGet]
         public IActionResult GetCars()
         {
+            
+            // pq using
             using var context = new CarContext();
             var cars = context.Cars.ToList();
 

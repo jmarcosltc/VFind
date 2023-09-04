@@ -11,7 +11,6 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-/*
 connection.on("RecieveLocation", function (licensePlate, latitude, longitude) {
     let ul = document.getElementById("locationList");
     let liCount = ul.getElementsByTagName('li').length;
@@ -26,4 +25,3 @@ connection.on("RecieveLocation", function (licensePlate, latitude, longitude) {
 
     document.getElementById("locationList").appendChild(locationList);
 })
-*/

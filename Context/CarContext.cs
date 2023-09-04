@@ -7,6 +7,7 @@ public class CarContext : DbContext {
 
     public CarContext() : base()
     {
+        // temporario
         Database.SetInitializer<CarContext>(new DropCreateDatabaseIfModelChanges<CarContext>());
     }
     public DbSet<Car> Cars { get; set; }
