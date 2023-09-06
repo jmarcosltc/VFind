@@ -4,21 +4,18 @@ using Microsoft.AspNetCore.SignalR;
 namespace CarLoc.Hubs; 
 
 public class FinderHub: Hub {
-    public async Task SendLocation()
+    public async Task SendLocation(string licensePlate)
     {
+        // DHH3456
         
-        using var ctx = new CarContext();
-        var allCars = ctx.Cars.ToList();
 
         while (true)
         {
-            foreach (var car in allCars)
-            {
-                Console.WriteLine($"License Plate: {car.licensePlate}\n" +
-                                  $"- Latitude: {car.lastLoc.latitude}\n" +
-                                  $"- Longitude: {car.lastLoc.longitude}");
-                await Clients.All.SendAsync("RecieveLocation", $"{car.licensePlate}", $"{car.lastLoc.latitude}", $"{car.lastLoc.longitude}");
-            }
+            using var ctx = new CarContext();
+            var carByLicensePlate = (from car in ctx.Cars
+                        where car.licensePlate == licensePlate
+                        select car).Single();
+            await Clients.All.SendAsync("RecieveLocation", $"{carByLicensePlate.licensePlate}", $"{carByLicensePlate.lastLoc.latitude}", $"{carByLicensePlate.lastLoc.longitude}");
             Thread.Sleep(2000);
         }
     }

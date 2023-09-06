@@ -1,4 +1,5 @@
 using CarLoc.Hubs;
+using CarLoc.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,11 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 app.MapHub<FinderHub>("/finderHub");
 
+// develop only
+Task.Run(RandomLocGenerator.GenerateLocations);
+
 app.Run();
+
